@@ -22,16 +22,15 @@ export async function getCompletion(command: string) {
     // Here we use the following endpoint pattern for engine selection.
     // https://api.openai.com/v1/engines/{engine_id}/completions
     // You can switch to different engines that are available to you. Learn more about engines - https://beta.openai.com/docs/engines/engines
-    const response = await fetch(`https://api.openai.com/v1/engines/${process.env.OPENAI_ENGINE_ID}/completions`, {
+    const response = await fetch(`${process.env.AOI_URL}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-            "OpenAI-Organization": `${process.env.OPENAI_ORGANIZATION_ID}`
+            "api-key": `${process.env.AOI_API_KEY}`
         },
         body: JSON.stringify({
             prompt,
-            max_tokens: 800,
+            max_tokens: 1206,
             temperature: 0,
             stop: "/*",
             n: 1
@@ -51,7 +50,8 @@ export async function getCompletion(command: string) {
     const json = await response.json();
     let code = json.choices[0].text;
 
-    let sensitiveContentFlag = await detectSensitiveContent(command + "\n" + code);
+    //let sensitiveContentFlag = await detectSensitiveContent(command + "\n" + code);
+    let sensitiveContentFlag = 0;
 
     // The flag can be 0, 1 or 2, corresponding to 'safe', 'sensitive' and 'unsafe'
     if (sensitiveContentFlag > 0) {

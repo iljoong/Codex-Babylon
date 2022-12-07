@@ -14,7 +14,8 @@ const controlHeight: number = 50; // px
 const buttonStyle: IButtonStyles = { root: { minWidth: 150, height: controlHeight, fontSize: 23 } };
 
 export default function Form() {
-    const serverUrl = `http://localhost:${process.env.SERVER_PORT}`;
+    //const serverUrl = `http://localhost:${process.env.SERVER_PORT}`;
+    const serverUrl = "https://iljoong-redesigned-space-winner-px7vqgwv472rww9-1200.preview.app.github.dev"; //`${process.env.SERVER_URL}`;
     const codeDivRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<ITextField>(null);
 
